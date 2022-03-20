@@ -1,4 +1,4 @@
-from SearchAlgorithms import BuscaGananciosa
+from SearchAlgorithms import BuscaGananciosa, AEstrela
 from Graph import State
 
 from copy import deepcopy
@@ -16,6 +16,12 @@ POSSIBILITIES = [
             (-1, 0)
 ]
 
+TILE_GOALCOORDS_MAP = {
+    1: (0, 0), 2: (0, 1), 3: (0, 2),
+    8: (1, 0), 0: (1, 1), 4: (1, 2),
+    7: (2, 0), 6: (2, 1), 5: (2, 2)
+}
+
 class Puzzle(State):
 
     def __init__(self, table, exclude_move, op):
@@ -23,16 +29,16 @@ class Puzzle(State):
         self.exclude_move = exclude_move
         self.operator = op
 
-    def blank_space_coords(self):
+    def tile_coords(self, tile_value = 0):
         for i in range(len(self.table)):
             for j in range(len(self.table[0])):
-                if(self.table[i][j] == 0):
+                if(self.table[i][j] == tile_value):
                     return i, j
     
     def sucessors(self):
         sucessors = []
 
-        zero_row, zero_col = self.blank_space_coords()
+        zero_row, zero_col = self.tile_coords()
 
         for diff_row, diff_col in POSSIBILITIES:
 
@@ -57,17 +63,14 @@ class Puzzle(State):
     def cost(self):
         return 1
 
-    def n_right_positions(self):
-        n = 0
-        for i in range(len(self.table)):
-            for j in range(len(self.table[0])):
-                if(self.table[i][j] == GOAL_TABLE[i][j]):
-                    n += 1
-
-        return n
-
     def h(self):
-        return -self.n_right_positions()
+        h = 0
+        for tile in range(1, 9):
+            tile_row, tile_col = self.tile_coords(tile)
+            goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
+            h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
+
+        return h
 
     def print(self):
         return str(self.operator)
@@ -81,7 +84,7 @@ def main():
 
     INITIAL_STATE = [
         [1, 0, 3],
-        [8, 2, 4],
+        [8, 4, 2],
         [7, 6, 5]
     ]
 
