@@ -3,7 +3,6 @@ from Graph import Node
 import logging
 logging.basicConfig(filename='search_algorithms.log', level=logging.DEBUG)
 
-MAX_LEN = 0
 # function used to sort a list
 def sortFunction(val):
     return val[1]
@@ -98,8 +97,6 @@ class BuscaCustoUniforme (SearchAlgorithm):
 class BuscaGananciosa (SearchAlgorithm):
 
     def search (self, initialState):
-        global MAX_LEN
-
         open = []
         new_n = Node(initialState, None)
         open.append((new_n, new_n.h()))
