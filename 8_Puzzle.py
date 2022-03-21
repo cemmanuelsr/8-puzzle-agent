@@ -24,9 +24,10 @@ TILE_GOALCOORDS_MAP = {
 
 class Puzzle(State):
 
-    def __init__(self, table, exclude_move, op):
+    def __init__(self, table, exclude_move, op, heuristic='manhattan'):
         self.table = table
         self.exclude_move = exclude_move
+        self.heuristic = heuristic
         self.operator = op
 
     def tile_coords(self, tile_value = 0):
@@ -50,7 +51,7 @@ class Puzzle(State):
                     op = f'{copy_table[zero_row][zero_col]} <--> {copy_table[zero_row + diff_row][zero_col + diff_col]}'
                     copy_table[zero_row][zero_col], copy_table[zero_row + diff_row][zero_col + diff_col] = copy_table[zero_row + diff_row][zero_col + diff_col], copy_table[zero_row][zero_col]
 
-                    sucessors.append(Puzzle(copy_table, (-diff_row, -diff_col), op))
+                    sucessors.append(Puzzle(copy_table, (-diff_row, -diff_col), op, self.heuristic))
 
         return sucessors
     
@@ -65,10 +66,19 @@ class Puzzle(State):
 
     def h(self):
         h = 0
-        for tile in range(1, 9):
-            tile_row, tile_col = self.tile_coords(tile)
-            goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
-            h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
+
+        if(self.heuristic == 'manhattan'):
+            for tile in range(1, 9):
+                tile_row, tile_col = self.tile_coords(tile)
+                goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
+                h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
+
+        if(self.heuristic == 'match-position'):
+            for tile in range(1, 9):
+                tile_row, tile_col = self.tile_coords(tile)
+                goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
+                if(goal_row != tile_row or goal_col != tile_col):
+                    h += 1
 
         return h
 
@@ -88,7 +98,7 @@ def main():
         [7, 2, 6]
     ]
 
-    state = Puzzle(INITIAL_STATE, (0, 0), '')
+    state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan')
     algorithm = BuscaGananciosa()
     start = time()
     result = algorithm.search(state)
