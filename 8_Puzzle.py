@@ -30,6 +30,12 @@ def flatten_table(table):
 
     return flatten
 
+def get_algorithm(algorithm='BG'):
+    if(algorithm == 'BG'):
+        return 'Busca Gananciosa', BuscaGananciosa()
+    if(algorithm == 'A*'):
+        return 'A*', AEstrela()
+
 class Puzzle(State):
 
     def __init__(self, table, exclude_move, op, heuristic='manhattan'):
@@ -115,11 +121,11 @@ def main():
 
     if(possible%2):
 
-        print('Estado inicial - Busca Gananciosa')
-        pretty_print_table(INITIAL_STATE)
-
         state = Puzzle(INITIAL_STATE, (0, 0), '')
-        algorithm = BuscaGananciosa()
+        algo_name, algorithm = get_algorithm()
+        print(f'Estado inicial - {algo_name}')
+        pretty_print_table(INITIAL_STATE)
+        
         start = time()
         result = algorithm.search(state)
         end = time()
