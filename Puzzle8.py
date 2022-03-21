@@ -28,6 +28,14 @@ def right_position(table):
 
     return n
 
+def flatten_table(table):
+    flatten = list()
+    for i in range(len(table)):
+        for j in range(len(table[0])):
+            flatten.append(table[i][j])
+
+    return flatten
+
 class Puzzle(State):
 
     def __init__(self, table, exclude_move, op, heuristic='manhattan'):
@@ -35,6 +43,16 @@ class Puzzle(State):
         self.exclude_move = exclude_move
         self.heuristic = heuristic
         self.operator = op
+
+    def is_possible(self):
+        flatten = flatten_table(self.table)
+        possible = 0
+        for i in range(len(flatten)):
+            for j in range(i+1, len(flatten)):
+                if(flatten[j] < flatten[i]):
+                    possible += 1
+
+        return possible%2
 
     def tile_coords(self, tile_value = 0):
         for i in range(len(self.table)):

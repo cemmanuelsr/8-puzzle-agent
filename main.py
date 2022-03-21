@@ -22,21 +22,14 @@ def get_algorithm(algorithm='BG'):
 def main():
 
     INITIAL_STATE = [
-        [1, 3, 4],
-        [8, 0, 5],
-        [7, 2, 6]
+        [2, 3, 1],
+        [8, 0, 4],
+        [7, 6, 5]
     ]
+    state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan2')
 
-    flatten = flatten_table(INITIAL_STATE)
-    possible = 0
-    for i in range(len(flatten)):
-        for j in range(i+1, len(flatten)):
-            if(flatten[j] < flatten[i]):
-                possible += 1
+    if(state.is_possible()):
 
-    if(possible%2):
-
-        state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan2')
         algo_name, algorithm = get_algorithm()
         print(f'Estado inicial - {algo_name}')
         pretty_print_table(INITIAL_STATE)
@@ -53,7 +46,7 @@ def main():
         print(f'Tempo de espera: {end - start} segundos')
     
     else:
-        print('Tabuleiro sem solução')
+       print('Tabuleiro sem solucao')
 
 if __name__ == '__main__':
     main()
