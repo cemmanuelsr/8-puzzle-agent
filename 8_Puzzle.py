@@ -24,10 +24,10 @@ TILE_GOALCOORDS_MAP = {
 
 class Puzzle(State):
 
-    def __init__(self, table, exclude_move, op, hs=['manhattan', 'permInversion']):
+    def __init__(self, table, exclude_move, op, heuristic='manhattan'):
         self.table = table
         self.exclude_move = exclude_move
-        self.hs = hs
+        self.heuristic = heuristic
         self.operator = op
 
     def tile_coords(self, tile_value = 0):
@@ -51,7 +51,7 @@ class Puzzle(State):
                     op = f'{copy_table[zero_row][zero_col]} <--> {copy_table[zero_row + diff_row][zero_col + diff_col]}'
                     copy_table[zero_row][zero_col], copy_table[zero_row + diff_row][zero_col + diff_col] = copy_table[zero_row + diff_row][zero_col + diff_col], copy_table[zero_row][zero_col]
 
-                    sucessors.append(Puzzle(copy_table, (-diff_row, -diff_col), op, self.hs))
+                    sucessors.append(Puzzle(copy_table, (-diff_row, -diff_col), op, self.heuristic))
 
         return sucessors
     
@@ -68,27 +68,20 @@ class Puzzle(State):
         flatten = list()
         for i in range(len(self.table)):
             for j in range(len(self.table[0])):
-                flatten.append(self.table[i][j])
+                flatten.append(table[i][j])
 
         return flatten
 
     def h(self):
         h = 0
 
-        if('manhattan' in self.hs):
+        if(self.heuristic == 'manhattan'):
             for tile in range(1, 9):
                 tile_row, tile_col = self.tile_coords(tile)
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
                 h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
 
-        if('permInversion' in self.hs):
-            flatten = self.flatten_table()
-            for i in range(len(flatten)):
-                for j in range(i+1, len(flatten)):
-                    if(flatten[j] < flatten[i]):
-                        h += 1
-
-        if('match' in self.hs):
+        if(self.heuristic == 'match'):
             for tile in range(1, 9):
                 tile_row, tile_col = self.tile_coords(tile)
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
@@ -115,7 +108,7 @@ def main():
     print('Estado inicial - Busca Gananciosa')
     pretty_print_table(INITIAL_STATE)
 
-    state = Puzzle(INITIAL_STATE, (0, 0), '', hs=['manhattan'])
+    state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan')
     algorithm = BuscaGananciosa()
     start = time()
     result = algorithm.search(state)
