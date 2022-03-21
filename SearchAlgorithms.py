@@ -7,6 +7,13 @@ logging.basicConfig(filename='search_algorithms.log', level=logging.DEBUG)
 def sortFunction(val):
     return val[1]
 
+def pretty_print_table(table):
+    for i in range(len(table)):
+        row = ''
+        for j in range(len(table[0])):
+            row += f'{table[i][j]} '
+        print(row + '\n')
+
 #
 # Implements search algorithms:
 # 1) Breadth-first search (BuscaLargura)

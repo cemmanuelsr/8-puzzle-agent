@@ -83,9 +83,9 @@ def main():
     print('Busca Gananciosa')
 
     INITIAL_STATE = [
-        [1, 0, 3],
-        [8, 4, 2],
-        [7, 6, 5]
+        [1, 3, 4],
+        [8, 0, 5],
+        [7, 2, 6]
     ]
 
     state = Puzzle(INITIAL_STATE, (0, 0), '')
