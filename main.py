@@ -1,17 +1,7 @@
 from Puzzle8 import Puzzle
 from SearchAlgorithms import BuscaGananciosa, AEstrela, pretty_print_table
-from Graph import State
 
-from copy import deepcopy
 from time import time
-
-def flatten_table(table):
-    flatten = list()
-    for i in range(len(table)):
-        for j in range(len(table[0])):
-            flatten.append(table[i][j])
-
-    return flatten
 
 def get_algorithm(algorithm='BG'):
     if(algorithm == 'BG'):
@@ -22,8 +12,8 @@ def get_algorithm(algorithm='BG'):
 def main():
 
     INITIAL_STATE = [
-        [2, 3, 1],
-        [8, 0, 4],
+        [2, 8, 3],
+        [1, 4, 0],
         [7, 6, 5]
     ]
     state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan2')
@@ -44,9 +34,6 @@ def main():
             print('Nao achou solucao')
 
         print(f'Tempo de espera: {end - start} segundos')
-    
-    else:
-       print('Tabuleiro sem solucao')
 
 if __name__ == '__main__':
     main()

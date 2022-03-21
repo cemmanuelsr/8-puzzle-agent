@@ -46,12 +46,14 @@ class Puzzle(State):
 
     def is_possible(self):
         flatten = flatten_table(self.table)
+        flatten.remove(0)
         possible = 0
         for i in range(len(flatten)):
             for j in range(i+1, len(flatten)):
                 if(flatten[j] < flatten[i]):
                     possible += 1
 
+        print('Nao possui solucao')
         return possible%2
 
     def tile_coords(self, tile_value = 0):
