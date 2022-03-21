@@ -22,6 +22,14 @@ TILE_GOALCOORDS_MAP = {
     7: (2, 0), 6: (2, 1), 5: (2, 2)
 }
 
+def flatten_table(table):
+    flatten = list()
+    for i in range(len(table)):
+        for j in range(len(table[0])):
+            flatten.append(table[i][j])
+
+    return flatten
+
 class Puzzle(State):
 
     def __init__(self, table, exclude_move, op, heuristic='manhattan'):
@@ -37,6 +45,7 @@ class Puzzle(State):
                     return i, j
     
     def sucessors(self):
+
         sucessors = []
 
         zero_row, zero_col = self.tile_coords()
@@ -63,14 +72,6 @@ class Puzzle(State):
     
     def cost(self):
         return 1
-
-    def flatten_table(self):
-        flatten = list()
-        for i in range(len(self.table)):
-            for j in range(len(self.table[0])):
-                flatten.append(table[i][j])
-
-        return flatten
 
     def h(self):
         h = 0
@@ -105,21 +106,33 @@ def main():
         [7, 2, 6]
     ]
 
-    print('Estado inicial - Busca Gananciosa')
-    pretty_print_table(INITIAL_STATE)
+    flatten = flatten_table(INITIAL_STATE)
+    possible = 0
+    for i in range(len(flatten)):
+        for j in range(i+1, len(flatten)):
+            if(flatten[j] < flatten[i]):
+                possible += 1
 
-    state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan')
-    algorithm = BuscaGananciosa()
-    start = time()
-    result = algorithm.search(state)
-    end = time()
-    if result != None:
-        print('Achou!')
-        print(result.show_path())
+    if(possible%2):
+
+        print('Estado inicial - Busca Gananciosa')
+        pretty_print_table(INITIAL_STATE)
+
+        state = Puzzle(INITIAL_STATE, (0, 0), '')
+        algorithm = BuscaGananciosa()
+        start = time()
+        result = algorithm.search(state)
+        end = time()
+        if result != None:
+            print('Achou!')
+            print(result.show_path())
+        else:
+            print('Nao achou solucao')
+
+        print(f'Tempo de espera: {end - start} segundos')
+    
     else:
-        print('Nao achou solucao')
-
-    print(f'Tempo de espera: {end - start} segundos')
+        print('Tabuleiro sem solução')
 
 if __name__ == '__main__':
     main()
