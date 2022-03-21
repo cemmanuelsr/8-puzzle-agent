@@ -1,4 +1,4 @@
-from SearchAlgorithms import BuscaGananciosa, AEstrela
+from SearchAlgorithms import BuscaGananciosa, AEstrela, pretty_print_table
 from Graph import State
 
 from copy import deepcopy
@@ -24,10 +24,10 @@ TILE_GOALCOORDS_MAP = {
 
 class Puzzle(State):
 
-    def __init__(self, table, exclude_move, op, heuristic='manhattan'):
+    def __init__(self, table, exclude_move, op, hs=['manhattan', 'permInversion']):
         self.table = table
         self.exclude_move = exclude_move
-        self.heuristic = heuristic
+        self.hs = hs
         self.operator = op
 
     def tile_coords(self, tile_value = 0):
@@ -51,7 +51,7 @@ class Puzzle(State):
                     op = f'{copy_table[zero_row][zero_col]} <--> {copy_table[zero_row + diff_row][zero_col + diff_col]}'
                     copy_table[zero_row][zero_col], copy_table[zero_row + diff_row][zero_col + diff_col] = copy_table[zero_row + diff_row][zero_col + diff_col], copy_table[zero_row][zero_col]
 
-                    sucessors.append(Puzzle(copy_table, (-diff_row, -diff_col), op, self.heuristic))
+                    sucessors.append(Puzzle(copy_table, (-diff_row, -diff_col), op, self.hs))
 
         return sucessors
     
@@ -64,16 +64,31 @@ class Puzzle(State):
     def cost(self):
         return 1
 
+    def flatten_table(self):
+        flatten = list()
+        for i in range(len(self.table)):
+            for j in range(len(self.table[0])):
+                flatten.append(self.table[i][j])
+
+        return flatten
+
     def h(self):
         h = 0
 
-        if(self.heuristic == 'manhattan'):
+        if('manhattan' in self.hs):
             for tile in range(1, 9):
                 tile_row, tile_col = self.tile_coords(tile)
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
                 h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
 
-        if(self.heuristic == 'match-position'):
+        if('permInversion' in self.hs):
+            flatten = self.flatten_table()
+            for i in range(len(flatten)):
+                for j in range(i+1, len(flatten)):
+                    if(flatten[j] < flatten[i]):
+                        h += 1
+
+        if('match' in self.hs):
             for tile in range(1, 9):
                 tile_row, tile_col = self.tile_coords(tile)
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
@@ -90,7 +105,6 @@ class Puzzle(State):
 
 
 def main():
-    print('Busca Gananciosa')
 
     INITIAL_STATE = [
         [1, 3, 4],
@@ -98,7 +112,10 @@ def main():
         [7, 2, 6]
     ]
 
-    state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan')
+    print('Estado inicial - Busca Gananciosa')
+    pretty_print_table(INITIAL_STATE)
+
+    state = Puzzle(INITIAL_STATE, (0, 0), '', hs=['manhattan'])
     algorithm = BuscaGananciosa()
     start = time()
     result = algorithm.search(state)
