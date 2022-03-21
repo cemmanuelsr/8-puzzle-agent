@@ -12,7 +12,7 @@ def pretty_print_table(table):
         row = ''
         for j in range(len(table[0])):
             row += f'{table[i][j]} '
-        print(row + '\n')
+        print(row)
 
 #
 # Implements search algorithms:

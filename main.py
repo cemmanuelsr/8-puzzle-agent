@@ -36,7 +36,7 @@ def main():
 
     if(possible%2):
 
-        state = Puzzle(INITIAL_STATE, (0, 0), '')
+        state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan2')
         algo_name, algorithm = get_algorithm()
         print(f'Estado inicial - {algo_name}')
         pretty_print_table(INITIAL_STATE)

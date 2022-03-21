@@ -19,6 +19,15 @@ TILE_GOALCOORDS_MAP = {
     7: (2, 0), 6: (2, 1), 5: (2, 2)
 }
 
+def right_position(table):
+    n = 0
+    for i in range(len(table)):
+        for j in range(len(table[0])):
+            if(table[i][j] != 0 and table[i][j] == GOAL_TABLE[i][j]):
+                n += 1
+
+    return n
+
 class Puzzle(State):
 
     def __init__(self, table, exclude_move, op, heuristic='manhattan'):
@@ -42,10 +51,8 @@ class Puzzle(State):
         for diff_row, diff_col in POSSIBILITIES:
 
             if((diff_row, diff_col) != self.exclude_move):
-
-                copy_table = deepcopy(self.table)
-
                 if(0 <= zero_row + diff_row <= 2 and 0 <= zero_col + diff_col <= 2):
+                    copy_table = deepcopy(self.table)
                     op = f'{copy_table[zero_row][zero_col]} <--> {copy_table[zero_row + diff_row][zero_col + diff_col]}'
                     copy_table[zero_row][zero_col], copy_table[zero_row + diff_row][zero_col + diff_col] = copy_table[zero_row + diff_row][zero_col + diff_col], copy_table[zero_row][zero_col]
 
@@ -71,12 +78,33 @@ class Puzzle(State):
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
                 h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
 
-        if(self.heuristic == 'match'):
+        if(self.heuristic == 'manhattan2'):
+            previous_matching_positions = right_position(self.table)
             for tile in range(1, 9):
                 tile_row, tile_col = self.tile_coords(tile)
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
-                if(goal_row != tile_row or goal_col != tile_col):
-                    h += 1
+
+                if(tile_row != goal_row or tile_col != goal_col):
+                    for diff_row, diff_col in POSSIBILITIES[:2]:
+                        if(0 <= tile_row + diff_row <= 2 and 0 <= tile_col + diff_col <= 2):
+                            copy_table = deepcopy(self.table)
+                            copy_table[tile_row][tile_col], copy_table[tile_row + diff_row][tile_col + diff_col] = copy_table[tile_row + diff_row][tile_col + diff_col], copy_table[tile_row][tile_col]
+                            post_matching_position = right_position(copy_table)
+
+                            if(post_matching_position - previous_matching_positions == 2):
+                                h += 2
+                                break
+
+                h += (abs(goal_row - tile_row) + abs(goal_col - tile_col))
+
+        if(self.heuristic == 'match'):
+            h = 8 - right_position(self.table)
+
+        if(self.heuristic == 'euclidian'):
+            for tile in range(1, 9):
+                tile_row, tile_col = self.tile_coords(tile)
+                goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
+                h += ((goal_row - tile_row)**2 + (goal_col - tile_col)**2)**0.5
 
         return h
 
