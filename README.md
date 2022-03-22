@@ -34,7 +34,7 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Execute o main.py e você deve visualizar o seguinte:
+Execute o solver.py e você deve visualizar o seguinte:
 
 ```
 Estado inicial - Busca Gananciosa
@@ -47,9 +47,9 @@ Tempo de espera: 0.0010349750518798828 segundos
 ```
 
 ```
-> main.py -h
+> solver.py -h
 
-usage: main [-h] [-a ALGORITHM] [-H HEURISTIC] [-s STATE]
+usage: solver [-h] [-a ALGORITHM] [-H HEURISTIC] [-s STATE]
 
 optional arguments:
   -h, --help            show this help message and exit
