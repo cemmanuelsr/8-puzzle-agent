@@ -1,5 +1,6 @@
 from Graph import State
 from copy import deepcopy
+from utils import flatten_table, right_position
 
 GOAL_TABLE = [
     [1, 2, 3],
@@ -18,23 +19,6 @@ TILE_GOALCOORDS_MAP = {
     8: (1, 0), 0: (1, 1), 4: (1, 2),
     7: (2, 0), 6: (2, 1), 5: (2, 2)
 }
-
-def right_position(table):
-    n = 0
-    for i in range(len(table)):
-        for j in range(len(table[0])):
-            if(table[i][j] != 0 and table[i][j] == GOAL_TABLE[i][j]):
-                n += 1
-
-    return n
-
-def flatten_table(table):
-    flatten = list()
-    for i in range(len(table)):
-        for j in range(len(table[0])):
-            flatten.append(table[i][j])
-
-    return flatten
 
 class Puzzle(State):
 

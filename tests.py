@@ -1,6 +1,6 @@
 from Puzzle8 import Puzzle
 from SearchAlgorithms import BuscaGananciosa, AEstrela, pretty_print_table
-from main import get_algorithm
+from utils import get_algorithm
 
 from time import time
 
@@ -58,7 +58,7 @@ def test_3():
     HEURISTIC = 'manhattan2'
     state = Puzzle(INITIAL_STATE, (0, 0), '', HEURISTIC)
 
-    algo_name, algorithm = get_algorithm('A*')
+    algo_name, algorithm = get_algorithm('star')
     print('Estado inicial')
     pretty_print_table(INITIAL_STATE)
     print(f'{algo_name} c/ heuristica {HEURISTIC}')

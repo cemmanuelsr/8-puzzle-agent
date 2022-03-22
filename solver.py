@@ -1,5 +1,6 @@
 from Puzzle8 import Puzzle
-from SearchAlgorithms import BuscaGananciosa, AEstrela, pretty_print_table
+from SearchAlgorithms import pretty_print_table
+from utils import initial_state, get_algorithm
 
 from time import time
 import argparse
@@ -9,18 +10,6 @@ parser.add_argument('-a', '--algorithm', type=str, default='bg')
 parser.add_argument('-H', '--heuristic', type=str, default='manhattan2')
 parser.add_argument('-s', '--state', type=str, default='2, 8, 3, 1, 4, 0, 7, 6, 5')
 args = parser.parse_args()
-
-def initial_state(string_state):
-    tiles = [int(tile) for tile in string_state.split(',')]
-    table = [tiles[i:i+3] for i in range(0, len(tiles), 3)]
-
-    return table
-
-def get_algorithm(algorithm='bg'):
-    if(algorithm == 'bg'):
-        return 'Busca Gananciosa', BuscaGananciosa()
-    if(algorithm == 'star'):
-        return 'A*', AEstrela()
 
 def solver():
 

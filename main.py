@@ -1,5 +1,5 @@
 from Puzzle8 import Puzzle
-from SearchAlgorithms import BuscaGananciosa, AEstrela
+from utils import initial_state, get_algorithm
 
 from fastapi import FastAPI, HTTPException
 from typing import Optional
@@ -10,7 +10,7 @@ app = FastAPI()
 
 class Algorithm(str, Enum):
     BuscaGananciosa: "bg"
-    AEstrela: "a"
+    AEstrela: "star"
 
 class Heuristic(str, Enum):
     Manhattan: "manhattan"
