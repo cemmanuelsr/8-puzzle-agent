@@ -53,7 +53,8 @@ class Puzzle(State):
                 if(flatten[j] < flatten[i]):
                     possible += 1
 
-        print('Nao possui solucao')
+        if(not possible%2):
+            print('Nao possui solucao')
         return possible%2
 
     def tile_coords(self, tile_value = 0):
