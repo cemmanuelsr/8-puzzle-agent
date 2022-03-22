@@ -22,7 +22,7 @@ def get_algorithm(algorithm='bg'):
     if(algorithm == 'star'):
         return 'A*', AEstrela()
 
-def main():
+def solver():
 
     INITIAL_STATE = initial_state(args.state)
     state = Puzzle(INITIAL_STATE, (0, 0), '', args.heuristic)
@@ -44,5 +44,4 @@ def main():
 
         print(f'Tempo de espera: {end - start} segundos')
 
-if __name__ == '__main__':
-    main()
+solver()
