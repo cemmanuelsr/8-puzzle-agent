@@ -2,11 +2,17 @@ from Puzzle8 import Puzzle
 from SearchAlgorithms import BuscaGananciosa, AEstrela, pretty_print_table
 
 from time import time
+import argparse
 
-def get_algorithm(algorithm='BG'):
-    if(algorithm == 'BG'):
+parser = argparse.ArgumentParser(prog='main')
+parser.add_argument('-a', '--algorithm', type=str, default='bg')
+parser.add_argument('-H', '--heuristic', type=str, default='manhattan2')
+args = parser.parse_args()
+
+def get_algorithm(algorithm='bg'):
+    if(algorithm == 'bg'):
         return 'Busca Gananciosa', BuscaGananciosa()
-    if(algorithm == 'A*'):
+    if(algorithm == 'star'):
         return 'A*', AEstrela()
 
 def main():
@@ -16,12 +22,12 @@ def main():
         [1, 4, 0],
         [7, 6, 5]
     ]
-    state = Puzzle(INITIAL_STATE, (0, 0), '', 'manhattan2')
+    state = Puzzle(INITIAL_STATE, (0, 0), '', args.heuristic)
 
     if(state.is_possible()):
 
-        algo_name, algorithm = get_algorithm()
-        print(f'Estado inicial - {algo_name}')
+        algo_name, algorithm = get_algorithm(args.algorithm)
+        print(f'Estado inicial - Realizando {algo_name} c/ heuristica {state.heuristic}')
         pretty_print_table(INITIAL_STATE)
         
         start = time()

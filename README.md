@@ -46,6 +46,17 @@ Achou!
 Tempo de espera: 0.0010349750518798828 segundos
 ```
 
+```
+> main.py -h
+
+usage: main [-h] [-a ALGORITHM] [-H HEURISTIC]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -a ALGORITHM, --algorithm ALGORITHM
+  -H HEURISTIC, --heuristic HEURISTIC
+```
+
 ## Raciocínio do Código
 
 O estado escolhido para representar uma configuração do tabuleiro é composto por quatro atributos:
