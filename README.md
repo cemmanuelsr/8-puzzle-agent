@@ -49,12 +49,13 @@ Tempo de espera: 0.0010349750518798828 segundos
 ```
 > main.py -h
 
-usage: main [-h] [-a ALGORITHM] [-H HEURISTIC]
+usage: main [-h] [-a ALGORITHM] [-H HEURISTIC] [-s STATE]
 
 optional arguments:
   -h, --help            show this help message and exit
   -a ALGORITHM, --algorithm ALGORITHM
   -H HEURISTIC, --heuristic HEURISTIC
+  -s STATE, --state STATE
 ```
 
 ## Raciocínio do Código
@@ -86,3 +87,4 @@ Estas são:
 - Distância de Manhattan (*manhattan*): a distância de Manhattan é simplesmenta a soma da distância vertical e horizontal de uma peça no estado atual até a posição desta no estado meta, heurística mais indicada;
 - Distância Euclidiana (*euclidian*): exatamente como na geometria, distância euclidiana entre a peça no estado atual e a mesma no estado meta, não representa um ganho significativo para a distância de Manhattan, mas diminui a possibilidade de *empates* entre estados;
 - Distância de Manhattan com Penalidade (*manhattan2*): é a distância de Manhattan mais uma penalidade de 2 para cada par diretamente reversível, isto é, um par cuja inversão direta já deixaria cada uma das peças na posição ótima, melhora significativamente a distância de Manhattan, é ótima, admissível, mas pode demorar para ser calculada. Inspirada no trabalho [Solving the 8 Puzzle in a Minimum Number of Moves: An Application of the A* Algorithm](https://web.mit.edu/6.034/wwwbob/EightPuzzle.pdf).
+

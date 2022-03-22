@@ -7,7 +7,14 @@ import argparse
 parser = argparse.ArgumentParser(prog='main')
 parser.add_argument('-a', '--algorithm', type=str, default='bg')
 parser.add_argument('-H', '--heuristic', type=str, default='manhattan2')
+parser.add_argument('-s', '--state', type=str, default='2, 8, 3, 1, 4, 0, 7, 6, 5')
 args = parser.parse_args()
+
+def initial_state(string_state):
+    tiles = [int(tile) for tile in string_state.split(',')]
+    table = [tiles[i:i+3] for i in range(0, len(tiles), 3)]
+
+    return table
 
 def get_algorithm(algorithm='bg'):
     if(algorithm == 'bg'):
@@ -17,11 +24,7 @@ def get_algorithm(algorithm='bg'):
 
 def main():
 
-    INITIAL_STATE = [
-        [2, 8, 3],
-        [1, 4, 0],
-        [7, 6, 5]
-    ]
+    INITIAL_STATE = initial_state(args.state)
     state = Puzzle(INITIAL_STATE, (0, 0), '', args.heuristic)
 
     if(state.is_possible()):
