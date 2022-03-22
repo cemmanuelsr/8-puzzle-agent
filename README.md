@@ -88,3 +88,25 @@ Estas são:
 - Distância Euclidiana (*euclidian*): exatamente como na geometria, distância euclidiana entre a peça no estado atual e a mesma no estado meta, não representa um ganho significativo para a distância de Manhattan, mas diminui a possibilidade de *empates* entre estados;
 - Distância de Manhattan com Penalidade (*manhattan2*): é a distância de Manhattan mais uma penalidade de 2 para cada par diretamente reversível, isto é, um par cuja inversão direta já deixaria cada uma das peças na posição ótima, melhora significativamente a distância de Manhattan, é ótima, admissível, mas pode demorar para ser calculada. Inspirada no trabalho [Solving the 8 Puzzle in a Minimum Number of Moves: An Application of the A* Algorithm](https://web.mit.edu/6.034/wwwbob/EightPuzzle.pdf).
 
+## Testes
+
+Para realizar os testes basta executar
+
+```
+> pytest tests.py --capture=tee-sys
+============= 5 passed in 0.06s =============
+```
+
+## API
+
+Foi criada uma API para resolver a interface online. Uma versão pode ser rodada localmente e acessada em localhost:8000
+
+```
+> uvicorn main:app --reload
+INFO:     Will watch for changes in these directories: ['/path/to/8-puzzle-agent']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [135459] using watchgod
+INFO:     Started server process [135461]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
