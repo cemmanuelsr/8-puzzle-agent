@@ -44,4 +44,5 @@ def solver():
 
         print(f'Tempo de espera: {end - start} segundos')
 
-solver()
+if __name__ == '__main__':
+    solver()

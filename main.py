@@ -1,6 +1,5 @@
 from Puzzle8 import Puzzle
 from SearchAlgorithms import BuscaGananciosa, AEstrela
-from solver import initial_state, get_algorithm
 
 from fastapi import FastAPI, HTTPException
 from typing import Optional
