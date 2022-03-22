@@ -4,7 +4,7 @@ from SearchAlgorithms import BuscaGananciosa, AEstrela, pretty_print_table
 from time import time
 import argparse
 
-parser = argparse.ArgumentParser(prog='main')
+parser = argparse.ArgumentParser(prog='solver')
 parser.add_argument('-a', '--algorithm', type=str, default='bg')
 parser.add_argument('-H', '--heuristic', type=str, default='manhattan2')
 parser.add_argument('-s', '--state', type=str, default='2, 8, 3, 1, 4, 0, 7, 6, 5')
