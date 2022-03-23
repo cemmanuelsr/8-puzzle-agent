@@ -12,9 +12,10 @@ class Algorithm(str, Enum):
     star = "A*"
 
 class Heuristic(str, Enum):
+    euclidian2 = "EuclidianBetter"
+    euclidian = "Euclidian"
     manhattan2 = "ManhattanBetter"
     manhattan = "Manhattan"
-    euclidian = "Euclidian"
     match = "MatchPositions"
 
 @app.get('/solve/{algorithm}/{heuristic}')
