@@ -20,6 +20,12 @@ TILE_GOALCOORDS_MAP = {
     7: (2, 0), 6: (2, 1), 5: (2, 2)
 }
 
+GAMBIARRA_MAP = {
+    1: 1, 2: 2, 3: 3,
+    8: 4, 0: 5, 4: 6,
+    7: 7, 6: 8, 5: 0
+}
+
 class Puzzle(State):
 
     def __init__(self, table, exclude_move, op, heuristic='manhattan'):
