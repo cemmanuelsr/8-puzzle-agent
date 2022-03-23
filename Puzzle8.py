@@ -111,6 +111,24 @@ class Puzzle(State):
                 goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
                 h += ((goal_row - tile_row)**2 + (goal_col - tile_col)**2)**0.5
 
+        if(self.heuristic == 'euclidian2'):
+            previous_matching_positions = right_position(self.table)
+            for tile in range(1, 9):
+                tile_row, tile_col = self.tile_coords(tile)
+                goal_row, goal_col = TILE_GOALCOORDS_MAP[tile]
+                h += ((goal_row - tile_row)**2 + (goal_col - tile_col)**2)**0.5
+
+                if(tile_row != goal_row or tile_col != goal_col):
+                    for diff_row, diff_col in POSSIBILITIES[:2]:
+                        if(0 <= tile_row + diff_row <= 2 and 0 <= tile_col + diff_col <= 2):
+                            copy_table = deepcopy(self.table)
+                            copy_table[tile_row][tile_col], copy_table[tile_row + diff_row][tile_col + diff_col] = copy_table[tile_row + diff_row][tile_col + diff_col], copy_table[tile_row][tile_col]
+                            post_matching_position = right_position(copy_table)
+
+                            if(post_matching_position - previous_matching_positions == 2):
+                                h += 2
+                                break
+
         return h
 
     def print(self):
