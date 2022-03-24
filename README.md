@@ -86,7 +86,8 @@ Estas são:
 - Número de posições erradas (*match*): a heurística é o número de posições erradas no estado atual comparado com o estado meta, excluída a posição vazia. Uma heurística fraca e pouco recomendada;
 - Distância de Manhattan (*manhattan*): a distância de Manhattan é simplesmenta a soma da distância vertical e horizontal de uma peça no estado atual até a posição desta no estado meta, heurística mais indicada;
 - Distância Euclidiana (*euclidian*): exatamente como na geometria, distância euclidiana entre a peça no estado atual e a mesma no estado meta, não representa um ganho significativo para a distância de Manhattan, mas diminui a possibilidade de *empates* entre estados;
-- Distância de Manhattan com Penalidade (*manhattan2*): é a distância de Manhattan mais uma penalidade de 2 para cada par diretamente reversível, isto é, um par cuja inversão direta já deixaria cada uma das peças na posição ótima, melhora significativamente a distância de Manhattan, é ótima, admissível, mas pode demorar para ser calculada. Inspirada no trabalho [Solving the 8 Puzzle in a Minimum Number of Moves: An Application of the A* Algorithm](https://web.mit.edu/6.034/wwwbob/EightPuzzle.pdf).
+- Distância de Manhattan com Penalidade (*manhattan2*): é a distância de Manhattan mais uma penalidade de 2 para cada par diretamente reversível, isto é, um par cuja inversão direta já deixaria cada uma das peças na posição ótima, melhora significativamente a distância de Manhattan, é ótima, admissível, mas pode demorar para ser calculada. Inspirada no trabalho [Solving the 8 Puzzle in a Minimum Number of Moves: An Application of the A* Algorithm](https://web.mit.edu/6.034/wwwbob/EightPuzzle.pdf);
+- Distância Euclidiana com Penalidade (*euclidian2*): é a distância euclidiana com a penalidade de *manhattan2*.
 
 ## Testes
 
