@@ -2,10 +2,18 @@ from Puzzle8 import Puzzle
 from utils import initial_state, get_algorithm
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from enum import Enum
 from time import time
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Algorithm(str, Enum):
     bg = "BuscaGananciosa"
