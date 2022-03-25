@@ -111,3 +111,11 @@ INFO:     Started server process [135461]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
+
+Foi feito deploy com a plataforma de microsservices [Deta](https://www.deta.sh/) e uma documentação gerada automaticamente para testes pode ser acessada [aqui](https://cthl98.deta.dev/docs).
+
+## WebApp
+
+Foi criado por último um aplicativo web, iterativo, onde é possível testar o algoritmo que se encontra em [https://cemmanuelsr.github.io/react-8-puzzle](https://cemmanuelsr.github.io/react-8-puzle).
+
+![WebApp](src/img/webapp.png)
