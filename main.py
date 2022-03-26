@@ -1,5 +1,5 @@
 from Puzzle8 import Puzzle
-from utils import initial_state, get_algorithm
+from utils import initial_state, get_algorithm, shuffle_table
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -54,3 +54,12 @@ async def solve(table : str, algorithm : Algorithm, heuristic : Heuristic):
         }
     else:
         raise HTTPException(status_code = 404, detail = 'Not found solution')
+
+@app.get('/shuffle')
+def shuffle(table : str):
+    initial_table = initial_state(table)
+    shuffled = shuffle_table(initial_table)
+
+    return {
+        "path": shuffled
+    }

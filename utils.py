@@ -1,3 +1,5 @@
+from random import randint, choice
+
 from SearchAlgorithms import BuscaGananciosa, AEstrela
 
 GOAL_TABLE = [
@@ -46,3 +48,28 @@ def flatten_table(table):
             flatten.append(table[i][j])
 
     return flatten
+
+def get_coords(table, tile):
+    for i in range(len(table)):
+        for j in range(len(table[0])):
+            if(table[i][j] == tile):
+                return i, j
+
+def shuffle_table(table):
+    zero_row, zero_col = get_coords(table, 0)
+    number_of_ops = randint(5, 20)
+    past_possibility = (0,0)
+    path = ''
+
+    for _ in range(number_of_ops):
+        diff_row, diff_col = choice(POSSIBILITIES)
+        while((-diff_row, -diff_col) == past_possibility or not(0 <= zero_row + diff_row <= 2 and 0 <= zero_col + diff_col <= 2)):
+            diff_row, diff_col = choice(POSSIBILITIES)
+
+        op = f'{table[zero_row][zero_col]} <--> {table[zero_row + diff_row][zero_col + diff_col]}'
+        table[zero_row][zero_col], table[zero_row + diff_row][zero_col + diff_col] = table[zero_row + diff_row][zero_col + diff_col], table[zero_row][zero_col]
+
+        path = path + ' ; ' + op
+        zero_row, zero_col = zero_row + diff_row, zero_col + diff_col
+
+    return path
