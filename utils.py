@@ -57,7 +57,7 @@ def get_coords(table, tile):
 
 def shuffle_table(table):
     zero_row, zero_col = get_coords(table, 0)
-    number_of_ops = randint(5, 20)
+    number_of_ops = randint(15, 30)
     past_possibility = (0,0)
     path = ''
 
