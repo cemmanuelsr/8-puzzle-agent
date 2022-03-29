@@ -98,6 +98,13 @@ Para realizar os testes basta executar
 ============= 5 passed in 0.06s =============
 ```
 
+Ou, para testar os endpoints da API
+
+```
+> pytest test_api.py --capture=tee-sys
+============= 3 passed in 0.28s =============
+```
+
 ## API
 
 Foi criada uma API para resolver a interface online. Uma versão pode ser rodada localmente e acessada em localhost:8000
