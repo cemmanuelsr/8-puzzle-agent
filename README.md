@@ -119,3 +119,7 @@ Foi feito deploy com a plataforma de microsservices [Deta](https://www.deta.sh/)
 Foi criado por último um aplicativo web, iterativo, onde é possível testar o algoritmo que se encontra em [https://cemmanuelsr.github.io/react-8-puzzle](https://cemmanuelsr.github.io/react-8-puzle).
 
 ![WebApp](src/img/webapp.png)
+
+### Observação
+
+O requirements.txt foi criado com o módulo pipreqs, se necessário, voltar para o commit d4edf71a554cc60046928b20c2a6ed36a5c11c4f e utilizar o requirements.txt desse momento.
